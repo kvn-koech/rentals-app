@@ -71,7 +71,7 @@ function PropertyDetails() {
           <h2>{property.title}</h2>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <p className="property-location" style={{ fontSize: '1.1rem', margin: 0 }}><span>📍</span> {property.location}</p>
-            <p className="property-price" style={{ margin: 0 }}>${property.price.toLocaleString()} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>/ month</span></p>
+            <p className="property-price" style={{ margin: 0 }}>Ksh {property.price.toLocaleString()} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>/ month</span></p>
           </div>
           <div style={{ padding: '1.5rem', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '8px' }}>
             <h4 style={{ marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Description</h4>

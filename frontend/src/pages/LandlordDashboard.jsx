@@ -97,7 +97,7 @@ function LandlordDashboard() {
               <input type="text" className="form-control" value={location} onChange={(e) => setLocation(e.target.value)} required />
             </div>
             <div className="form-group">
-              <label className="form-label">Price per Month ($)</label>
+              <label className="form-label">Price per Month (Ksh)</label>
               <input type="number" className="form-control" value={price} onChange={(e) => setPrice(e.target.value)} required min="0" />
             </div>
             <div className="form-group">
@@ -133,7 +133,7 @@ function LandlordDashboard() {
                   <div style={{ padding: '1.5rem', flexGrow: 1 }}>
                     <h4 style={{ marginBottom: '0.5rem' }}>{property.title}</h4>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}><span>📍</span> {property.location}</p>
-                    <p style={{ color: 'var(--secondary)', fontWeight: 'bold' }}>${property.price.toLocaleString()} / mo</p>
+                    <p style={{ color: 'var(--secondary)', fontWeight: 'bold' }}>Ksh {property.price.toLocaleString()} / mo</p>
                   </div>
                 </div>
               ))}

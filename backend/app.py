@@ -7,20 +7,46 @@ CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///rentals.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+import random
+from faker import Faker
+
+fake = Faker()
+kenyan_locations = ['Westlands, Nairobi', 'Kilimani, Nairobi', 'Karen, Nairobi', 'Nyali, Mombasa', 'Milimani, Kisumu', 'Runda, Nairobi', 'Diani Beach, Kwale', 'Nakuru City', 'Eldoret Town', 'Kileleshwa, Nairobi']
+house_types = ['Apartment', 'Mansion', 'Bungalow', 'Townhouse', 'Penthouse', 'Studio']
+adjectives = ['Luxurious', 'Spacious', 'Cozy', 'Modern', 'Elegant', 'Secure', 'Beautiful']
+images = [
+    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500',
+    'https://images.unsplash.com/photo-1502672260266-1c1e52ab0645?w=500',
+    'https://images.unsplash.com/photo-1448630360428-65456885c650?w=500',
+    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500',
+    'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500'
+]
+
 db.init_app(app)
 
 with app.app_context():
     db.create_all()
     # Seed some initial data if empty
     if not User.query.first():
-        landlord1 = User(username='landlord_bob', role='landlord')
-        customer1 = User(username='customer_alice', role='customer')
+        landlord1 = User(username='landlord_kamau', role='landlord')
+        customer1 = User(username='customer_wambui', role='customer')
         db.session.add_all([landlord1, customer1])
         db.session.commit()
         
-        prop1 = Property(title='Sunny Apartment in Downtown', description='Beautiful 2 bedroom apartment in the heart of the city.', price=1500.0, location='Downtown', landlord_id=landlord1.id, image_url='https://images.unsplash.com/photo-1502672260266-1c1e52ab0645?w=500')
-        prop2 = Property(title='Cozy Suburban House', description='3 bedroom house with a large backyard and garage.', price=2200.0, location='Suburbia', landlord_id=landlord1.id, image_url='https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500')
-        db.session.add_all([prop1, prop2])
+        properties = []
+        for _ in range(9):
+            title = f"{random.choice(adjectives)} {random.choice(house_types)} in {random.choice(kenyan_locations).split(',')[0]}"
+            description = fake.paragraph(nb_sentences=4)
+            # Round prices to nearest 5000
+            price = random.randint(5, 50) * 5000.0
+            location = random.choice(kenyan_locations)
+            image_url = random.choice(images)
+            
+            prop = Property(title=title, description=description, price=price, location=location, landlord_id=landlord1.id, image_url=image_url)
+            properties.append(prop)
+            
+        db.session.add_all(properties)
         db.session.commit()
 
 # --- API Endpoints ---

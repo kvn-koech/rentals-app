@@ -46,7 +46,7 @@ function Home() {
               <div className="property-location">
                 <span>📍</span> {property.location}
               </div>
-              <div className="property-price">${property.price.toLocaleString()} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>/ month</span></div>
+              <div className="property-price">Ksh {property.price.toLocaleString()} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>/ month</span></div>
               <Link to={`/property/${property.id}`} className="btn btn-primary" style={{ width: '100%', marginTop: 'auto' }}>
                 View Details
               </Link>
